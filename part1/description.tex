@@ -1,2 +1,11 @@
 \section{Machine Description}
-Description goes here.
+
+We ran all of the benchmark's on Alex's server, so its hardware
+specification is the most relevant.  We used QEMU with the CPU type
+set to \verb|host,+rdtscp,+invtsc| in order to ensure that the host's
+TSC resources were passed through to the guest correctly.
+
+According to \verb|/proc/cpuinfo|, the machine has an Intel i7-4770
+CPU, designed for a base clock of 3.40 GHz.
+
+TODO finish writing this section.

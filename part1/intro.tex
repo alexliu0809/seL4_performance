@@ -2,14 +2,25 @@
 The goal of this project is to measure the performance of \textit{seL4},
 a formally verified kernel ~\cite{klein2009sel4}. 
 We are a group of two students: Peter Amidon and Enze ``Alex'' Liu. 
-All of our measurements are implemented in \todo{CAmkES}, which consists of C files and other description files. 
 
-Peter performed the first experiment on measuring the performance of CPU.
+We worked together on the experiments. Peter set up the boilerplate to
+get a root task working and memory mapped together, and Alex wrote the
+benchmark code.
 
-State the language you used to implement your measurements, 
-and the compiler version and optimization settings you used to compile your code. 
-If you are measuring in an unusual environment 
-(e.g., virtual machine, Web browser, compute cloud, etc.), 
-discuss the implications of the environment on the measurement task 
-(e.g., additional variance that is difficult for you to control for). 
-Estimate the amount of time you spent on this project.
+We implemented all of the measurements in C, using the rdtscp
+instruction to measure time.  We used GCC 7.4.0 with both -O2 and -g
+to compile the code.
+
+Since seL4 is difficult to run on real hardware, due to its extremely
+limited device driver support, we decided to run seL4 inside of QEMU,
+at least for this phase of the project. In order to make timing more
+accurate, we ran QEMU with KVM hardware virtualization, since as far
+as Peter could tell, using QEMU with the tiny code generator emulated
+processor would result in a very strange cost model (instruction costs
+are very odd compared to hardware, and the TSC is essentially passed
+through). In order to minimize interference from the host system, we
+used the Linux \verb|cpuset| and task CPU affinity infrastructure to
+isolate an entire core for the OS and pin the virtual machine to a
+single hyperthread on that core. We hope that this will significantly
+reduce the extra variance introduced by virtualization as opposed to
+running directly on native hardware.
