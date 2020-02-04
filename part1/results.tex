@@ -23,10 +23,17 @@ All ten experiments got an average measurement overhead of 31 cycles.
 \end{table}
 
 \subsubsection{Call Overhead}
-For each function with a different number of args, we performed ten rounds of experiments, with each round sampling the overhead 100,000 times. We only report the average overhead across 100,000 samples for each round.
-Table \ref{tab:t2} shows the average overhead for ten rounds for each function. 
-We see the average overhead increases with the number of args. 
-We also observ that most of the times the average overhead is stable.
+For each number of arguments, we performed ten rounds of experiments,
+with each round sampling the overhead 100,000 times.
+%
+We only report the average overhead across 100,000 samples for each
+round.
+%
+Table \ref{tab:t2} shows the average overhead for ten rounds for each
+function.
+%
+We see the average overhead increases with the number of args. We also
+observe that most of the time, the average overhead is stable.
 
 \begin{table}[htb]
 
@@ -58,8 +65,14 @@ We also observ that most of the times the average overhead is stable.
 
 
 \subsubsection{Syscall Overhead}
-We performed ten rounds of experiments, with each round sampling the overhead 100,000 times. We only report the average overhead across 100,000 samples for each round.
-Table \ref{tab:t3} shows the average syscall overhead for ten rounds. 
+We performed ten rounds of experiments, with each round sampling the
+overhead 100,000 times.
+%
+We only report the average overhead across 100,000 samples for each
+round.
+%
+Table \ref{tab:t3} shows the average and standard deviation for the
+syscall overhead over the ten rounds.
 
 \begin{table}[tb]
 
@@ -78,8 +91,15 @@ Table \ref{tab:t3} shows the average syscall overhead for ten rounds.
     
 \subsubsection{Task Creation Time}
 \label{subsubsec:tct}
-We performed ten rounds of experiments, with each round sampling the overhead 100,000 times. We only report the average overhead across 100,000 samples for each round.
-Table \ref{tab:t4} shows the average task creation time for ten rounds. We observed some obvious outliers in this case. However, we are not able to explain what happened.
+We performed ten rounds of experiments, with each round sampling the
+overhead 100,000 times. %
+We only report the average overhead across 100,000 samples for each
+round. %
+Table \ref{tab:t4} shows the average and standard deviation of task
+creation time for the ten rounds. %
+We observed some obvious outliers in this case, where the timestamp
+counter appeared to move backwards. %
+However, we are not able to explain what happened.
 
 \begin{table}[htb]
 
@@ -95,10 +115,14 @@ Table \ref{tab:t4} shows the average task creation time for ten rounds. We obser
 \end{table}
 
 \subsubsection{Task Switch Time}
-We performed ten rounds of experiments, with each round sampling the overhead 100,000 times. We only report the average overhead across 100,000 samples for each round.
-Table \ref{tab:t5} shows the average task switch time for ten rounds. Similar to section \ref{subsubsec:tct}, we observed some outliers, yet unable to explain why.
-
-
+We performed ten rounds of experiments, with each round sampling the
+overhead 100,000 times. %
+We only report the average overhead across 100,000 samples for each
+round. %
+Table \ref{tab:t5} shows the average and standard deviation of the
+task switch time over the ten rounds. %
+As with section~\ref{subsubsec:tct}, we observed some outliers, but
+were unable to explain their cause.
 
 \begin{table}[htb]
 
