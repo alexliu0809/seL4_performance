@@ -12,11 +12,11 @@ All ten experiments got an average measurement overhead of 31 cycles.
 
 \caption{Mean, min and max values of average measurement overhead for ten rounds}
 
-    \begin{tabular}{|c|c|c|} 
+    \begin{tabular}{|c|c|c|c|} 
      \hline
-     Mean & Min & Max \\ 
+     Mean & Min & Max & Stddev\\ 
      \hline
-     31 & 31 & 31 \\ 
+     31 & 31 & 31 & 0\\ 
      \hline
     \end{tabular}
     \label{tab:t1}
@@ -32,25 +32,25 @@ We also observ that most of the times the average overhead is stable.
 
 \caption{Mean, min and max values of average call overhead for ten rounds}
 
-    \begin{tabular}{|c|c|c|c|} 
+    \begin{tabular}{|c|c|c|c|c|} 
      \hline
-     \# of Args & Mean & Min & Max \\ 
+     \# of Args & Mean & Min & Max & Stddev \\ 
      \hline
-     0 & 34 & 34 & 34 \\ 
+     0 & 34 & 34 & 34 & 0 \\ 
      \hline
-     1 & 34 & 34 & 34 \\ 
+     1 & 34 & 34 & 34 & 0\\ 
      \hline
-     2 & 36 & 36 & 36 \\ 
+     2 & 36 & 36 & 36 & 0\\ 
      \hline
-     3 & 36.7 & 36 & 39 \\ 
+     3 & 36.7 & 36 & 39 & 1.02\\ 
      \hline
-     4 & 39 & 39 & 39 \\ 
+     4 & 39 & 39 & 39 & 0\\ 
      \hline
-     5 & 40 & 40 & 40 \\ 
+     5 & 40 & 40 & 40 & 0\\ 
      \hline
-     6 & 41.2 & 40 & 43 \\ 
+     6 & 41.2 & 40 & 43 & 0.75 \\ 
      \hline
-     7 & 42.9 & 42 & 43 \\ 
+     7 & 42.9 & 42 & 43 & 0.30\\ 
      \hline
     \end{tabular}
     \label{tab:t2}
@@ -65,11 +65,11 @@ Table \ref{tab:t3} shows the average syscall overhead for ten rounds.
 
     \caption{Mean, min and max values of syscall overhead for ten rounds}
     
-    \begin{tabular}{|c|c|c|} 
+    \begin{tabular}{|c|c|c|c|} 
         \hline
-        Mean & Min & Max \\ 
+        Mean & Min & Max & Stddev\\ 
         \hline
-        1681.3 & 1678 & 1699 \\ 
+        1681.3 & 1678 & 1699 & 5.98\\ 
         \hline
        \end{tabular}
         \label{tab:t3}
@@ -84,11 +84,11 @@ Table \ref{tab:t4} shows the average task creation time for ten rounds. We obser
 \begin{table}[htb]
 
     \caption{Mean, min and max values of task creation time for ten rounds}
-\begin{tabular}{|c|c|c|} 
+\begin{tabular}{|c|c|c|c|} 
     \hline
-    Mean & Min & Max \\ 
+    Mean & Min & Max & Stddev\\ 
     \hline
-    67620.9 & 24655 & 454173 \\ 
+    67620.9 & 24655 & 454173 & 128850.70\\ 
     \hline
    \end{tabular}
     \label{tab:t4}
@@ -104,11 +104,11 @@ Table \ref{tab:t5} shows the average task switch time for ten rounds. Similar to
 
     \caption{Mean, min and max values of task switch time for ten rounds}
  
-\begin{tabular}{|c|c|c|} 
+\begin{tabular}{|c|c|c|c|} 
     \hline
-    Mean & Min & Max \\ 
+    Mean & Min & Max & Stddev\\ 
     \hline
-    6458.8 & 2158 & 45110 \\ 
+    6458.8 & 2158 & 45110 & 12883.74\\ 
     \hline
    \end{tabular}
     \label{tab:t5}
