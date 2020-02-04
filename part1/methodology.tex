@@ -1,8 +1,57 @@
 \section{Methodology}
 \subsection{Measuring Overhead in CPU, Scheduling, and OS Services}
-In this section, we are mostly concerned with the overhead incurred in CPU, scheduling, and OS services. 
-We selected \textit{rdtsc} function as our timestamp function as recommended by the instructor.
+%
+In this section, we are mostly concerned with the overhead incurred in
+CPU, scheduling, and OS services.
+%
+We selected \textit{rdtscp} function as our timestamp function as
+recommended by the instructor.
+%
 We then placed whichever function we wanted to evaluate in between of two \textit{rdtscp} functions.
+%
 Apparently, if nothing were placed in between, we would get an estimate of the \textit{measurement overhead}, 
 the overhead introduced by the timestamp function.
-When measuring the overhead of other functions, we would need to subtract the \textit{measurement overhead} to get the real overhead introduced by that function.
+%
+When measuring the overhead of other functions, we would need to
+subtract the \textit{measurement overhead} to get the real overhead
+introduced by that function.
+%
+For each of the tests, we ran 10 sample runs, and then computed the
+mean and the standard deviation over all the sample runs.
+%
+
+For each of the tests except process creation, we ran 100000 of the
+operations inside a single sample run.
+%
+Since process creation was an order of magnitude slower than anything
+else, we ran only 10000 process creation operations per run.
+%
+In every case, except syscall overhead, we achieved this within each
+run by running the requisite number of individual timing operations
+and summing them: for measuring overhead, the only way to do it
+involves running the timing measurement; and for benchmarking
+procedure calls and thread switches, it is necessary to record the
+time after the call/thread switch has happened without waiting for a
+return/context switch back to happen.
+%
+Therefore, the measurement overhead is present in all of these
+measurements, but for the syscall measurement, it is minimal (as it
+occurs only once, when the syscall is run 100000 times).
+
+We implemented most of the measurements in a straightforward fashion.
+%
+For the syscall overhead measurement, we used the syscall
+\verb|seL4_BenchmarkNullSyscall| which is an empty syscall designed
+for benchmarking system call transition overhead.
+%
+For the two measurements involving multiple tasks, we measured the
+time to set up a new thread control block and/or allow a context
+switch to the new thread, since this is the only primitive notion of
+task in seL4.
+%
+In the future, we may also consider implementing a notion of processes
+on top of these primitive threads, allowing benchmarking those as
+well; however, since processes are essentially a composite of ``new
+virtual address space'', ``new capability space'', and ``new thread'',
+we believe it is likely more interesting to measure each of these
+individually.

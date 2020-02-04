@@ -1,14 +1,15 @@
 \section{Machine Description}
 
 We ran all of the benchmark's on a server, so its hardware
-specification is the most relevant.  Before we detail the configuration of our hardware, there are two things worth mentioning here.
+specification is the most relevant.  Before we detail the configuration of our hardware, there are three things worth mentioning here.
 First, we used QEMU with the CPU type
 set to \verb|host,+rdtscp,+invtsc| in order to ensure that the host's
 TSC resources were passed through to the guest correctly. 
 Next, we also
-used the Linux \verb|cpuset| and task CPU affinity infrastructure to
-isolate an entire core for the OS and pin the virtual machine to a
-single hyperthread on that core.
+used the Linux \verb|isolcpus| boot option and task CPU affinity infrastructure to
+dedicate a core to the guest OS.
+Finally, we used the machine's BIOS to disable hyperthreading and
+dynamic frequency scaling to keep the CPU performance characteristics repeatable.
 Below we report on the characteristics of our hardware:
 \begin{enumerate}
     \item Processor: an Intel i7-4770 CPU with 4 cores, designed for a base clock of 3.40 GHz. 

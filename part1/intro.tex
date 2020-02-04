@@ -19,8 +19,8 @@ as we could tell, using QEMU with the tiny code generator emulated
 processor would result in a very strange cost model (instruction costs
 are very odd compared to hardware, and the TSC is essentially passed
 through). In order to minimize interference from the host system, we
-used the Linux \verb|cpuset| and task CPU affinity infrastructure to
-isolate an entire core for the OS and pin the virtual machine to a
-single hyperthread on that core. We hope that this will significantly
-reduce the extra variance introduced by virtualization as opposed to
-running directly on native hardware.
+used the Linux \verb|isolcpus| and task CPU affinity infrastructure to
+dedicate a core to running the virtual machine; we also disabled
+hyperthreading to reduce interference from other threads. We hope that
+this will significantly reduce the extra variance introduced by
+virtualization as opposed to running directly on native hardware.
