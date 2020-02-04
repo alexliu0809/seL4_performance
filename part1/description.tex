@@ -1,11 +1,22 @@
 \section{Machine Description}
 
-We ran all of the benchmark's on Alex's server, so its hardware
-specification is the most relevant.  We used QEMU with the CPU type
+We ran all of the benchmark's on a server, so its hardware
+specification is the most relevant.  Before we detail the configuration of our hardware, there are two things worth mentioning here.
+First, we used QEMU with the CPU type
 set to \verb|host,+rdtscp,+invtsc| in order to ensure that the host's
-TSC resources were passed through to the guest correctly.
-
-According to \verb|/proc/cpuinfo|, the machine has an Intel i7-4770
-CPU, designed for a base clock of 3.40 GHz.
-
-TODO finish writing this section.
+TSC resources were passed through to the guest correctly. 
+Next, we also
+used the Linux \verb|cpuset| and task CPU affinity infrastructure to
+isolate an entire core for the OS and pin the virtual machine to a
+single hyperthread on that core.
+Below we report on the characteristics of our hardware:
+\begin{enumerate}
+    \item Processor: an Intel i7-4770 CPU with 4 cores, designed for a base clock of 3.40 GHz. 
+    It has 32K of L1 cache, 256K of L2 cache and 8192K of L3 cache.
+    \item Memory bus: 64 bits
+    \item I/O bus: 64 bits
+    \item RAM: 12GB DDR3 RAM with a memory clock speed of 1600 MT/s and data width of 64 bits.
+    \item Disk: 1TB SATA hard drive with a rotation rate of 7200 RPM and physical sector size of 4MB.
+    \item Network card speed: 1000Mb/s
+    \item Operating system: 18.04.4 LTS (Bionic Beaver)
+\end{enumerate}

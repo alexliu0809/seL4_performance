@@ -1,2 +1,8 @@
 \section{Methodology}
-Methodology goes here.
+\subsection{Measuring Overhead in CPU, Scheduling, and OS Services}
+In this section, we are mostly concerned with the overhead incurred in CPU, scheduling, and OS services. 
+We selected \textit{rdtsc} function as our timestamp function as recommended by the instructor.
+We then placed whichever function we wanted to evaluate in between of two \textit{rdtscp} functions.
+Apparently, if nothing were placed in between, we would get an estimate of the \textit{measurement overhead}, 
+the overhead introduced by the timestamp function.
+When measuring the overhead of other functions, we would need to subtract the \textit{measurement overhead} to get the real overhead introduced by that function.

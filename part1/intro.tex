@@ -4,7 +4,7 @@ a formally verified kernel ~\cite{klein2009sel4}.
 We are a group of two students: Peter Amidon and Enze ``Alex'' Liu. 
 
 We worked together on the experiments. Peter set up the boilerplate to
-get a root task working and memory mapped together, and Alex wrote the
+get a root task working and memory mapped together, and both of us wrote the
 benchmark code.
 
 We implemented all of the measurements in C, using the rdtscp
@@ -15,7 +15,7 @@ Since seL4 is difficult to run on real hardware, due to its extremely
 limited device driver support, we decided to run seL4 inside of QEMU,
 at least for this phase of the project. In order to make timing more
 accurate, we ran QEMU with KVM hardware virtualization, since as far
-as Peter could tell, using QEMU with the tiny code generator emulated
+as we could tell, using QEMU with the tiny code generator emulated
 processor would result in a very strange cost model (instruction costs
 are very odd compared to hardware, and the TSC is essentially passed
 through). In order to minimize interference from the host system, we
