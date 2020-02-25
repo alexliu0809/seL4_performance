@@ -23,5 +23,14 @@ results reported here should be dominated by the
 memory subsystem, not the processor add unit.
 Memory writing is measured by an unrolled loop
 that stores a value into a 4-byte integer and then increments the pointer.
+Finally, in order to test memory bandwidth
+rather than cache bandwidth, 
+before each run,
+we empty cache by copying a 4MB area to another 4MB area.\\
+\\
+For one run, we allocated an array of 4MB and performed reading/writing over the entire array 1000 times, 
+and recorded the average reading/writing time.
+We then reported on the average reading/writing time over 10 runs.
+
 
 
