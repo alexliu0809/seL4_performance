@@ -6,6 +6,16 @@ Table \ref{tab:t1} shows the average overhead across ten rounds.
 The results are very consistent.
 All ten experiments got an average measurement overhead of 31 cycles.
 
+Since this benchmark is just running two RDTSCP instructions in a row,
+with some minimal moves inserted to copy the results (which may be
+renamed away), we should expect that the number we get is quite close
+to the issue latency of the RDTSCP.
+%
+Although Intel doesn't document the likely issue latency of RDTSCP,
+Agner Fog's excellent X86 instruction latency tables show issue
+latencies of 30-odd cycles for RDTSCP in similar microarchitectures
+(Broadwell and Skylake), so this number seems reasonable.
+
 \begin{table}[htb]
 
 \caption{Mean, min and max values of average measurement overhead for ten rounds}
@@ -32,6 +42,19 @@ function.
 %
 We see the average overhead increases with the number of args. We also
 observe that most of the time, the average overhead is stable.
+%
+
+This benchmark again is only a few instructions, so it makes sense
+that the latencies are generally quite stable.
+%
+The setup instructions necessary to put arguments in the correct
+registers increase for each subsequent argument added, so small
+increases in latency are to be expected.
+%
+For our benchmark, these are simple move-immediate instructions, so it
+seems that the details of pipeline scheduling introduce variations of
+a few cycles, allowing for adding an argument to sometimes not
+noticeably increase latency.
 
 \begin{table}[htb]
 
@@ -72,6 +95,15 @@ round.
 Table \ref{tab:t3} shows the average and standard deviation for the
 syscall overhead over the ten rounds.
 
+It is difficult to predict the syscall overhead without simply
+measuring it, because the details of syscall entry points in X64 are
+complicated, and depend significantly on how the OS entry points work
+(e.g. latency of switching stacks to the kernel stack).
+%
+The number of some 1700 cycles seems reasonable, as it shows latency
+about two orders of magnitude worse than function calls for a full
+kernel entry and exit.
+
 \begin{table}[tb]
 
     \caption{Mean, min and max values of syscall overhead for ten rounds}
@@ -97,7 +129,20 @@ Table \ref{tab:t4} shows the average and standard deviation of task
 creation time for the ten rounds. %
 We observed some obvious outliers in this case, where the timestamp
 counter appeared to move backwards. %
-However, we are not able to explain what happened.
+However, we are not able to explain what happened. %
+This contributes to the unreasonably large standard deviation in the
+table. %
+We intend to run these benchmarks again with the outliers due to
+backwards-moving timestamp counters removed. %
+
+It is difficult to predict what task creation time should look like,
+since a significant number of syscalls are needed to set up the new
+thread's thread control block, as well as some userspace time needed
+to allocate memory for the TCB, etc.
+%
+We see 9 or so syscall instructions in the generated assembly, so
+latency about an order of magnitude worse than one syscall overhead is
+reasonable.
 
 \begin{table}[htb]
 
@@ -120,7 +165,20 @@ round. %
 Table \ref{tab:t5} shows the average and standard deviation of the
 task switch time over the ten rounds. %
 As with section~\ref{subsubsec:tct}, we observed some outliers, but
-were unable to explain their cause.
+were unable to explain their cause, and intend to filter them out from
+the dataset in the next round of experiments.
+
+If the syscall overhead numbers from Table~\ref{tab:t3} represent two
+CPU context switches (once from user-space to kernel-space and once
+back), then switching to a new thread seems to take about three
+context switches of time, which seems reasonable, since the scheduler
+must use some time to find which thread is next to run.
+%
+Memory remapping is not needed, since the new thread is running in the
+same address space as the original, so it makes sense that the context
+switch takes the same order of magnitude time as a single syscall.
+%
+
 
 \begin{table}[htb]
 
