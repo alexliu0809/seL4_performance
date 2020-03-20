@@ -246,7 +246,7 @@ ax.annotate('32K L1', xy=(15, 20), xytext=(15, 40),
 ax.annotate('256K L2', xy=(18, 30), xytext=(18, 50),
             arrowprops=dict(facecolor='black', shrink=0.05),
 )
-ax.annotate('4M L1', xy=(22, 50), xytext=(22, 90),
+ax.annotate('4M L3', xy=(22, 50), xytext=(22, 90),
             arrowprops=dict(facecolor='black', shrink=0.05),
 )
 #plt.annotate( 15, 40, 0, -20, fc="k", ec="k", head_width=0.5, head_length=1, label="")

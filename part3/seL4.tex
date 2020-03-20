@@ -1,0 +1,46 @@
+\documentclass[sigconf,anonymous=false]{acmart}
+
+%\fancyhf{} % Remove fancy page headers 
+%\fancyhead[C]{Anonymous submission \#9999 to ACM CCS 2019} % TODO: replace 9999 with your paper number
+%\fancyfoot[C]{\thepage}
+
+%\setcopyright{none} % No copyright notice required for submissions
+%\acmConference[Anonymous Submission to ACM CCS 2019]{ACM Conference on Computer and Communications Security}{Due 15 May 2019}{London, TBD}
+%\acmYear{2019}
+
+\settopmatter{printacmref=false, printccs=false, printfolios=false} % We want page numbers on submissions
+\definecolor{Orange}{rgb}{1,0.5,0}
+\usepackage{xcolor}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{listings}
+
+\newcommand{\todo}[1]{\textsf{\textbf{\textcolor{Orange}{[[#1]]}}}}
+\usepackage{graphicx} %Loading the package
+\graphicspath{{../measurement/results/}}
+\usepackage{booktabs}
+
+\begin{document}
+\title{Performance Measurement of seL4} % TODO: replace with your title
+\author{Peter Amidon, Enze ``Alex'' Liu}
+%\orcid{0000-0000-0000}
+\affiliation{%
+  \institution{University of California, San Diego}
+}
+\email{{pamidon, e7liu}@eng.ucsd.edu}
+
+\input{abs}
+
+\ccsdesc{Security and privacy~Use https://dl.acm.org/ccs.cfm to generate actual concepts section for your paper}
+% -- end of section to replace with generated code
+
+%\keywords{template; formatting; pickling} % TODO: replace with your keywords
+
+\maketitle
+
+\input{body} % TODO: replace with your brilliant paper!
+
+\clearpage
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{seL4}
+
+\end{document}

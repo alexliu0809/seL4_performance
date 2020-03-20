@@ -1,0 +1,36 @@
+\subsection{Measuring Memory Access Time and Bandwidth}
+In this section, 
+we detail how we measuring memory access time and bandwidth.\\
+\\
+For measuring memory access time, we followed the lmbench paper ~\cite{mcvoy1996lmbench} and measured the back-to-back load time.
+Back-to-back-load latency is the time that each load takes, assuming that
+the instructions before and after are also cache missing loads. 
+The following C code fragment from the lmbench paper describes the basic idea of back-to-back-load latency ~\cite{mcvoy1996lmbench}:
+\lstinputlisting[language=c]{example.c}
+We need to iterate through an array with certain stride size.
+Obviously, we will have to specify two arguments: array size and array stride. 
+In our experiment, we create arrays with sizes ranging from 4KB to 16MB. 
+The stride sizes used are 16, 32, 64, 128 and 256 bytes.
+The lmbench paper also indicated what to expect: small stride sizes have high spatial locality and should have higher performance, but
+large stride sizes have poor spatial locality causing the
+system to prefetch useless data ~\cite{mcvoy1996lmbench}.\\
+\\
+For measuring memory bandwidth, we modified the lmbench paper's implementation~\cite{mcvoy1996lmbench}.
+Memory reading is measured by a hand-unrolled loop that loads and adds 4-byte integers.
+Even though we are adding integers in this experiment, 
+according to the lmbench paper, the
+results reported here should be dominated by the
+memory subsystem, not the processor add unit.
+Memory writing is measured by an unrolled loop
+that stores a value into a 4-byte integer and then increments the pointer.
+Finally, in order to test memory bandwidth
+rather than cache bandwidth, 
+before each run,
+we empty cache by copying a 4MB area to another 4MB area.\\
+\\
+For one run, we allocated an array of 4MB and performed reading/writing over the entire array 1000 times, 
+and recorded the average reading/writing time.
+We then reported on the average reading/writing time over 10 runs.
+
+
+
