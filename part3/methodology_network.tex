@@ -1,1 +1,21 @@
-\subsection{Roundtrip Time}
+\subsection{Round Trip Time}
+We build our network stack with two libraries, \textit{ethdrivers}~\cite{utillibs55:online} and \textit{lwip}~\cite{lwIPWiki65:online}.
+Despite many limitations and little documentation, 
+we managed to get UDP packet sending working. 
+We were not able to register interrupt request (aka IRQ) properly. 
+Thus, the interrupt request from network card would never be delivered.
+However, 
+we came up with a workaround that allowed us to know when an UDP packet was received.
+We achieved this by consistently polling from the network driver. 
+A callback function will be called when a packet arrived.\\
+\\
+We now describe the experiment we performed.
+We measured the round trip time of a UDP packet from a client (our program) to an echo server on localhost.
+We start the timer when we send the packet.
+As mentioned above, to get notified when the echo packet comes back,
+we have to consistently poll and wait for a callback function to be called.
+We stop polling when the callback function is called and and the timer.\\
+\\
+For one run, we sent UDP packets to our echo server 10 times, 
+and recorded the average round trip time.
+We then reported on the average reading/writing time over 10 runs.

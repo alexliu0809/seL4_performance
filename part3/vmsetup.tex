@@ -1,2 +1,56 @@
-\section{Experiment Setup}
-In this section, we detail how we setup the virtual machine and what command you need to perform the experiments.
+\section{Virtual Machine Setup}
+We setup a kvm on the machine described in section \ref{sec:md}.
+In this section, 
+we detail how we setup and run the virtual machine and 
+what commands you need to run our code.
+
+\subsection{Install Dependencies}
+To set up host machine to build and run seL4, 
+we need to install the required dependencies.
+Examples of dependencies include \textit{cmake, ccache,} and \textit{ninja-build}.
+A comprehensive list of dependencies required can be found here ~\cite{HostDepe94:online}. 
+For repeatability, we also note the installed version of some critical dependencies here.
+\begin{enumerate}
+    \item cmake version 3.16.5
+    \item ninja version 1.8.2
+    \item python3 version 3.6.9
+    \item QEMU version 2.11.1
+    \item gcc version 7.4.0    
+\end{enumerate}
+
+\subsection{Link Extra Libraries}
+After installing all the necessary dependencies, 
+one could create and build a project following the tutorial here ~\cite{Tutorial63:online}. 
+However, 
+the default project does not incorporate some of the imperative
+libraries. So we have to link them first before building the project. More specifically, we need to change one line in the project's \textit{CMakeList.txt} file.
+We have to add three libraries, namely \textit{ethdrivers}, \textit{lwip} and \textit{pci}, 
+to \textit{target\_link\_libraries}. 
+This ensures that we could use these libraries in later phases.
+
+\subsection{Build the Project}
+After linking the important libraries, 
+we can now build the project.
+To build the project on our specific platform, 
+we have to supply the following arguments when building.
+\begin{lstlisting}
+    -DPLATFORM=x86_64
+    -DSIMULATION=1
+    -DKernelX86MicroArch=nehalem
+    -DKernelBenchmarks=generic
+    -DLibLwip=ON    
+\end{lstlisting}
+
+\subsection{Start Simulation}
+Now we've built the project successfully. 
+We can start running our code in QEMU, a simulated environment. 
+To start simulation properly, we need to pass the following arguments.
+
+\begin{lstlisting}
+--cpu=host,+rdtscp,+invtsc
+--extra-qemu-args='-enable-kvm\
+-netdev user,id=net0,net=192.168.5.0/24\
+-device virtio-net-pci,netdev=net0\
+-object filter-dump,id=f1,netdev=net0,\
+file=dump.dat -d int'
+\end{lstlisting}
